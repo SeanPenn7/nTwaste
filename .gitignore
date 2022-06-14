@@ -23,7 +23,7 @@ project.xcworkspace
 **/.xcode.env.local
 
 
-.env.local
+.env
 # Gradle
 /build/
 /packages/react-native-gradle-plugin/build/
