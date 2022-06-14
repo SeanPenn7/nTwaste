@@ -49,7 +49,7 @@ export default function ({ navigation }) {
             style={{
               flex: 1,
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center",             
               backgroundColor: isDarkmode ? "#17171E" : themeColor.white100,
             }}
           >
