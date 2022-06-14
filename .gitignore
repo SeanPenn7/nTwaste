@@ -22,7 +22,7 @@ DerivedData
 project.xcworkspace
 **/.xcode.env.local
 
-
+/vars
 .env
 # Gradle
 /build/
