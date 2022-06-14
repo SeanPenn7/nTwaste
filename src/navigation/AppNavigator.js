@@ -6,7 +6,8 @@ import { AuthContext } from "../provider/AuthProvider";
 import 'dotenv/config' 
 import { REACT_APP_FIREBASE_API_KEY, REACT_APP_FIREBASE_APP_ID,
 REACT_APP_FIREBASE_AUTH_DOMAIN, REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
- REACT_APP_FIREBASE_STORAGE_BUCKET} from 'react-native-dotenv'
+ REACT_APP_FIREBASE_STORAGE_BUCKET, REACT_APP_FIREBASE_PROJECT_ID,
+ REACT_APP_GWID} from '@env';
 // Main
 import Home from "../screens/Home";
 import SecondScreen from "../screens/SecondScreen";
@@ -22,14 +23,24 @@ import Landing from "../screens/auth/Landing";
 import Loading from "../screens/utils/Loading";
 
 // Better put your these secret keys in .env file
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDRvvv27wcqKC6z-p9HyO-p8zO6hclBvrc",
+//   authDomain: "ntwaste-9cea1.firebaseapp.com",
+//   projectId: "ntwaste-9cea1",
+//   storageBucket: "ntwaste-9cea1.appspot.com",
+//   messagingSenderId: "116325619105",
+//   appId: "1:116325619105:web:fc80e7f72a347431e1a7e0",
+//   measurementId: "G-5YNB564SRH"
+// };
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDRvvv27wcqKC6z-p9HyO-p8zO6hclBvrc",
-  authDomain: "ntwaste-9cea1.firebaseapp.com",
-  projectId: "ntwaste-9cea1",
-  storageBucket: "ntwaste-9cea1.appspot.com",
-  messagingSenderId: "116325619105",
-  appId: "1:116325619105:web:fc80e7f72a347431e1a7e0",
-  measurementId: "G-5YNB564SRH"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_GWID
 };
 
 if (getApps().length === 0) {
