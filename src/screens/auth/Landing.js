@@ -2,8 +2,6 @@ import { Text, View, StyleSheet, Image, Button } from 'react-native'
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-
-
 const AppButton = ({ onPress, icon, title, backgroundColor }) => (
     <View style={styles.appButtonContainer}>
       <Icon.Button
