@@ -20,6 +20,8 @@ export default function ({ navigation }) {
     <Layout>
       <TopNav
         middleContent="Home"
+        backgroundColor="#00BAC6"
+        borderColor="none"
         rightContent={
           <Ionicons
             name={isDarkmode ? "sunny" : "moon"}

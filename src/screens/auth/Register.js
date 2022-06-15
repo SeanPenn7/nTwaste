@@ -109,7 +109,7 @@ export default function ({ navigation }) {
                 register();
               }}
               style={{
-                marginTop: 20,
+                marginTop: 50,
               }}
               disabled={loading}
             />
