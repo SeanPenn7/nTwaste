@@ -5,13 +5,14 @@ import {
   View,
   KeyboardAvoidingView,
   Image,
+  Button,
+  StyleSheet
 } from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {
   Layout,
   Text,
   TextInput,
-  Button,
   useTheme,
   themeColor,
 } from "react-native-rapi-ui";
@@ -59,7 +60,7 @@ export default function ({ navigation }) {
                 height: 220,
                 width: 220,
               }}
-              source={require("../../../assets/login.png")}
+              source={require("../../../assets/splash.png")}
             />
           </View>
           <View
@@ -103,16 +104,15 @@ export default function ({ navigation }) {
               secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}
             />
-            <Button
-              text={loading ? "Loading" : "Continue"}
-              onPress={() => {
-                login();
-              }}
-              style={{
-                marginTop: 20,
-              }}
-              disabled={loading}
-            />
+        
+              <TouchableOpacity
+                style={styles.loginButton}
+                onPress={() => {
+                  login();
+                }}
+                >
+                  <Text style={{color: 'white'}}>{loading ? "Loading" : "Continue"}</Text>
+                </TouchableOpacity>
 
             <View
               style={{
@@ -187,3 +187,20 @@ export default function ({ navigation }) {
     </KeyboardAvoidingView>
   );
 }
+
+
+
+const styles = StyleSheet.create({
+  loginButton: {
+    marginTop: 30,
+    borderRadius: 10, 
+    backgroundColor: '#00BAC6',
+    alignItems: 'center',
+    padding: 10
+  },
+
+  loginTitle: {
+    color: '#fff'
+  }
+
+})
