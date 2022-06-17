@@ -1,6 +1,14 @@
 import { Text, View, StyleSheet, Image, Button } from 'react-native'
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
+// import { GoogleSignin } from '@react-native-google-signin/google-signin';
+// import * as Google from 'expo-google-app-auth';
+import * as WebBrowser from 'expo-web-browser';
+import { ResponseType } from 'expo-auth-session';
+import * as Google from 'expo-auth-session/providers/google';
+import { initializeApp } from 'firebase/app';
+import { getAuth, GoogleAuthProvider, signInWithCredential, signInWithPopup } from 'firebase/auth';
 
 const AppButton = ({ onPress, icon, title, backgroundColor, styleBack }) => (
     <View style={styles.appButtonContainer}>
@@ -17,7 +25,61 @@ const AppButton = ({ onPress, icon, title, backgroundColor, styleBack }) => (
     </View>
   );
 
+WebBrowser.maybeCompleteAuthSession();
+
 export default function ({ navigation }) {
+    const [accessToken, setAccessToken] = React.useState();
+    const [userInfo, setUserInfo] = React.useState();
+    const [loading, setLoading] = useState(false);
+
+    const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
+      {
+        clientId: '227196084425-5e8po5oe7uoa5dk4staia1dgukmp58eq.apps.googleusercontent.com',
+        },
+    );
+      
+    async function GoogleLogin() {
+      setLoading(true);
+      const auth = getAuth();
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+      }).catch((error) => {
+        setLoading(false);
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+    }
+    
+
+    React.useEffect(() => {
+      setLoading(true);
+      if (response?.type === 'success') {
+        const { id_token } = response.params;
+        
+        const auth = getAuth();
+        const provider = new GoogleAuthProvider();
+        const credential = provider.credential(id_token);
+        signInWithCredential(auth, credential);
+      }
+    }, [response]);
+  
+
+
+  
+
     return (
       <View
         style={{ 
@@ -64,7 +126,11 @@ export default function ({ navigation }) {
                 icon="google" 
                 title="Continue with Google" 
                 styleBack={styles.appButton3}
-                backgroundColor="#14191e" onPress={() => { navigation.navigate("Register");}}/>
+                backgroundColor="#14191e" onPress={
+                  () => {
+                    GoogleLogin()
+                  }
+                }/>
         </View>
             
         </View>
@@ -72,8 +138,6 @@ export default function ({ navigation }) {
       // </View>
     )
 }
-
-
 
 
 const styles = StyleSheet.create({
@@ -85,8 +149,8 @@ const styles = StyleSheet.create({
       },
       appButton: {
         padding: 16,
-        paddingLeft: 60,
-        paddingRight: 60,
+        paddingLeft: 70,
+        paddingRight: 70,
         borderRadius: 20,
       },
       appButton2: {
@@ -97,8 +161,8 @@ const styles = StyleSheet.create({
       },
       appButton3: {
         padding: 16,
-        paddingLeft: 60,
-        paddingRight: 60,
+        paddingLeft: 65,
+        paddingRight: 65,
         borderRadius: 20,
       },
       appButtonText: {
