@@ -5,7 +5,12 @@ import { AuthProvider } from "./src/provider/AuthProvider";
 import { ThemeProvider } from "react-native-rapi-ui";
 import { LogBox } from "react-native";
 import * as SplashScreen from 'expo-splash-screen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Home from "./src/screens/Home";
+import SecondScreen from "./src/screens/SecondScreen";
 
+const Tab = createMaterialTopTabNavigator();
 
 export default function App(props) {
   const [isLoading, setIsLoading] = React.useState(true);
